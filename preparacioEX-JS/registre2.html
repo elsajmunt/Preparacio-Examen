@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <form id="elForm" method="GET" action="http://www.google.com" name="miForm" >
+            <input type="text" id="nom" name="nom" value="Nom"> <span id="avis_nom"></span><br>
+            <input type="text" id="cognoms" name="cognoms" value="Cognoms"><span id="avis_cognoms"></span><br>                
+            <input type="text" id="edat" name="edat"><span id="avis_edat"></span><br>
+            <input type="text" id="telefon" name="telefon"><span id="avis_telefon"></span><br>
+
+            <label></label><strong>Género:</strong></label>
+			
+            <label for="hombre" class="inline">Hombre</label> 
+            <input type="radio" id="hombre" name="sexo" class="inline">
+            
+            <label for="mujer" class="inline">Mujer</label>
+            <input type="radio" id="mujer" name="sexo" class="inline">
+            <span id="avis_genero"></span><br>
+
+            <select name="provincia" id="provincia">
+                <option>---</option>
+                <option>Barcelona</option>
+                <option>Gironar</option>
+                <option>Lleida</option>
+                <option>Tarragona</option>               
+            </select>
+            <span id="avis_provincia"></span><br>
+
+
+            <input type="checkbox" name="políticas" id="politicas">Aceptas las políticas de privacidad<br>
+            <span id="avis_politicas"></span><br>
+
+
+            <input type="submit" name="envio" ><BR>
+        </form>
+        <script>
+            let elFormulari = document.getElementById("elForm");
+            elFormulari.addEventListener ("submit", function (event) { //FUNCIÓ sense nom Noms elements PREDETERMINATS. Salta ql click Submit
+                event.preventDefault();
+                               
+                let resultat = true;  // ACCEPTEM QUE D'ENTRADA TOT ESTÀ BÉ o ÉS VALID
+
+                let elementNom = document.getElementById("nom"); // NOM ---------------------
+                let avisNom = document.getElementById("avis_nom"); 
+                let valorElemNom = elementNom.value;  // per agafar el VALOR NOM
+                let longNom = valorElemNom.length; // valor LONGITUT del Nom
+
+                let elementCognoms = document.getElementById("cognoms"); // COGNOMS -------------------
+                let avisCognoms = document.getElementById("avis_cognoms");
+                let valorElementCognoms = elementCognoms.value;  // per agafar el VALOR COGNOMS
+                let longCognoms = valorElementCognoms.length; // valor LONGITUT del COGNOMS
+
+
+                let elementEdat = document.getElementById("edat"); //  EDAD ---------------------
+                let avisEdat = document.getElementById("avis_edat"); 
+                let valorElemEdat = elementEdat.value;  // per agafar el VALOR EDAT
+                let maximaEdat = 65; // <<<<<< PENDENT CANVIAR valor EDAT
+
+                let elementGeneroH = document.getElementById("hombre");     //  GENERO  ---------------------
+                let elementGeneroM = document.getElementById("mujer");                 
+                let avisGenero = document.getElementById("avis_genero"); 
+
+                let elementProvincia = document.getElementById("provincia");   // PROVINCIA  ---------------------
+                let avisProvincia = document.getElementById("avis_provincia"); 
+
+                let elementPoliticas = document.getElementById("politicas");   // POLÍTICAS  ---------------------
+                let avisPoliticas = document.getElementById("avis_politicas"); 
+            
+
+        // CONDICIONS VALIDACIONS: -------------------------
+
+                if (longNom < 5) { 
+                    avisNom.innerHTML="MÍNIM 5 caracters";
+                    resultat = false;
+                }
+
+                else {
+                    avisNom.innerHTML="";
+                }
+                
+                if (longCognoms<12) {
+                    avisCognoms.innerHTML="MÍNIM 12 carsters";
+                    resultat = false;
+                }
+
+                if (valorElemEdat < 18 || valorElemEdat > 65) { 
+                    avisEdat.innerHTML="Edat no valida!";
+                    resultat = false;
+                }
+
+                if (!elementGeneroH.checked && !elementGeneroM.checked) { 
+                    avisGenero.innerHTML="Es obligatori escoger una opción.";
+                    resultat = false;
+                }
+                else {
+                    avisGenero.innerHTML="";
+                }
+                
+                if (elementProvincia.selectedIndex==0) {
+                    avisProvincia.innerHTML="Es obligatori escoger una provincia.";
+                    resultat = false;
+                }
+                else {
+                    avisProvincia.innerHTML="";
+                }
+
+
+                if (!elementPoliticas.checked) {
+                    avisPoliticas.innerHTML="Es obligatori acceptar les Polítiques de privacitat."
+                    resultat = false;
+                }
+
+                else {
+                    avisPoliticas.innerHTML="";
+                }
+
+                console.log("VALIDAR FORM!!! resultat", resultat);  
+            
+                return resultat;
+                
+            })
+        </script>
+
+    </body>
+</html>
